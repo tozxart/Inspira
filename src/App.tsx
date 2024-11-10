@@ -2,8 +2,9 @@ import { useRef } from "react";
 import Gallery from "./components/Gallery";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import { Palette, Instagram, Linkedin, Dribbble } from "lucide-react";
+import { Instagram, Linkedin, Dribbble } from "lucide-react";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import WorkSlider from "./components/WorkSlider";
 
 function App() {
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -14,15 +15,19 @@ function App() {
 
   return (
     <Router>
-      <div className="min-h-screen bg-gradient-to-br from-[#fafafa] to-[#f5f5f5] flex flex-col">
+      <div className="min-h-screen bg-neutral-50 flex flex-col">
         {/* Header */}
-        <header className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-gray-200/20">
+        <header className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200">
           <div className="container mx-auto px-4 py-4">
             <div className="flex items-center justify-between">
               <Link to="/" className="flex items-center space-x-3">
-                <div className="relative">
+                <div className="relative w-8 h-8">
                   <div className="absolute inset-0 bg-primary-500/20 rounded-full blur animate-pulse"></div>
-                  <Palette size={32} className="text-primary-600 relative" />
+                  <img
+                    src="https://i.postimg.cc/Mp9fkFtC/logo-version-1-8.png"
+                    alt="Inspira Logo"
+                    className="w-full h-full object-contain relative scale-150"
+                  />
                 </div>
                 <h1 className="text-2xl font-bold text-gradient">Inspira</h1>
               </Link>
@@ -57,13 +62,13 @@ function App() {
                 <>
                   {/* Hero Section */}
                   <section className="pt-32 pb-20 relative overflow-hidden">
-                    <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-purple-500/5"></div>
+                    <div className="absolute inset-0 bg-gradient-to-r from-primary-500/5 to-secondary-500/5"></div>
                     <div className="container mx-auto px-4 relative">
                       <div className="max-w-4xl mx-auto text-center">
                         <h2 className="text-5xl md:text-7xl font-bold mb-6 text-gradient animate-float">
                           We see what others don't
                         </h2>
-                        <p className="text-xl text-gray-600 max-w-2xl mx-auto leading-relaxed mb-10">
+                        <p className="text-xl text-neutral-700 max-w-2xl mx-auto leading-relaxed mb-10">
                           and turn ideas into unique designs
                         </p>
                         <div className="flex justify-center gap-4 mb-12">
@@ -97,6 +102,7 @@ function App() {
                       </div>
                     </div>
                   </section>
+                  <WorkSlider />
                   <div ref={galleryRef}>
                     <Gallery />
                   </div>
@@ -109,7 +115,7 @@ function App() {
         </main>
 
         {/* Footer */}
-        <footer className="bg-white border-t border-gray-200/20">
+        <footer className="bg-white border-t border-neutral-200">
           <div className="container mx-auto px-4 py-12">
             <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
               <div className="space-y-4">
