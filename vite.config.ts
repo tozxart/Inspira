@@ -7,13 +7,6 @@ export default defineConfig({
   base: "/inspira/",
   build: {
     outDir: "dist",
-    assetsDir: "assets",
-    sourcemap: true,
-    rollupOptions: {
-      output: {
-        manualChunks: undefined,
-      },
-    },
   },
   resolve: {
     alias: {
