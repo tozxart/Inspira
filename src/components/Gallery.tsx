@@ -4,6 +4,444 @@ import { Project } from "./types";
 import { ImageOff } from "lucide-react";
 import PinnedProjects from "./PinnedProjects";
 
+export const projects: Project[] = [
+  {
+    id: 1,
+    title: "Arcava golf brand",
+    category: "branding",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/xTKFPKgJ/1.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/dVZ3XVky/2.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/6qK1sqp5/3.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/kMtnqpM0/4.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/2yPyjsg6/5.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 2,
+    title: "Podcast Design Up Att Batt",
+    category: "branding",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/QCXzvCfk/1-2.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/VNnH6nTW/2-2.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/Y97DmjBK/3-2.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/XYTz4Q2v/4-2.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 3,
+    title: "Blooming coffee brand design",
+    category: "branding",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/rwmdCLLD/1-3.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/gjFRNtHf/2-3.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/28TbZSgp/3-3.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/zG57JvW9/4-3.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 4,
+    title: "brand design for a game develope, 762 Interactive",
+    category: "branding",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/XJFxjCH6/1-4.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/BvRMfgCC/2-4.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/KvWTHVzR/3-4.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/pdRLGYDm/4-4.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 6,
+    title: "Cover design for the book Educational Psychology",
+    category: "books",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/L8vgK8m4/1-5.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/XYnBzCSD/2-5.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/NGrX9tkb/3-5.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/GmjGLjxC/4-5.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 7,
+    title: "Cover Book",
+    category: "books",
+    pinned: true,
+    layout: {
+      grid: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/9F2nPkNH/Cover-Book.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/9FBNLBvR/libro-n.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 8,
+    title: "Otaku Magazine, first issue",
+    category: "magazine",
+    pinned: true,
+    showTitle: true,
+    layout: {
+      vertical: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/x8Wq5XGg/waershtgthhtht.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/qv26mx5K/Photorealistic-Magazine-Mock-Up.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/B6n8n9Q5/pixelcut-export-11.png",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/PxVCL3Pg/dyvu6gi7h8ojpk9.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 9,
+    title: "Logo Collection",
+    category: "logos",
+    pinned: true,
+    layout: {
+      horizontal: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/02MwSsGc/logo-Lending-Hands-to-Local-Brands-Mesa-de-trabajo-1.jpg",
+        displaySeparately: true,
+        title: "Lending Hands to Local Brands",
+      },
+      {
+        url: "https://i.postimg.cc/7hcJRs43/LOGO-Meigs-Creek-Hideaway-Mesa-de-trabajo-1.jpg",
+        displaySeparately: true,
+        title: "Meigs Creek Hideaway",
+      },
+      {
+        url: "https://i.postimg.cc/PqzZqQbH/logo-post-Mesa-de-trabajo-1-copia.jpg",
+        displaySeparately: true,
+        title: "Post Logo",
+      },
+      {
+        url: "https://i.postimg.cc/7PQzb6z5/LOGO-The-Problem-Solver-Mesa-de-trabajo-1.jpg",
+        displaySeparately: true,
+        title: "The Problem Solver",
+      },
+      {
+        url: "https://i.postimg.cc/YS47cVHy/smart-big-box-logo-Mesa-de-trabajo-1.jpg",
+        displaySeparately: false,
+        title: "Smart Big Box",
+      },
+    ],
+  },
+  {
+    id: 10,
+    title: "T-shirt design for a new startup",
+    category: "t-shirts",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/MTQzBL3j/post-2-04.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/gjydSZWz/post-2-05.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/Df12ytb9/post-2-06.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/SNqmXD6J/post-2-07.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/xTRnLM5g/post-2-08.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 11,
+    title: "ALMANGA brand",
+    category: "t-shirts",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/g279KDZy/Sin-t-tulo-2-Mesa-de-trabajo-1.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/zfHs2gCs/Sin-t-tulo-2-Mesa-de-trabajo-1-copia.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/prR3dcwv/Sin-t-tulo-2-Mesa-de-trabajo-1-copia-2.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/sxmqG9zh/Sin-t-tulo-2-Mesa-de-trabajo-1-copia-3.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/44Qr0Zcx/Sin-t-tulo-2-Mesa-de-trabajo-1-copia-4.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 12,
+    title: "T-shirt design for a new startup",
+    category: "t-shirts",
+    pinned: true,
+    layout: {
+      grid: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/c4M4TVxR/WERTTRTT.png",
+        displaySeparately: true,
+        title: "Thin air apparel t-shirt:",
+      },
+      {
+        url: "https://i.postimg.cc/SxSQPDRw/Srgtfe.jpg",
+        displaySeparately: true,
+        title: "Leon design t-shirt",
+      },
+    ],
+  },
+  {
+    id: 13,
+    title: "Banners",
+    category: "Banners",
+    pinned: true,
+    layout: {
+      vertical: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/WpQMXz1Q/plantilla-BANNERS-Mesa-de-trabajo-1-copia-2.jpg",
+        displaySeparately: true,
+        title: "Banner 1",
+      },
+      {
+        url: "https://i.postimg.cc/T3xnvsm0/plantilla-BANNERS-Mesa-de-trabajo-1-copia.jpg",
+        displaySeparately: true,
+        title: "Banner 2",
+      },
+      {
+        url: "https://i.postimg.cc/ydxdzmvv/plantilla-BANNERS-Mesa-de-trabajo-1-copia-3.jpg",
+        displaySeparately: true,
+        title: "Banner 3",
+      },
+      {
+        url: "https://i.postimg.cc/Ghy42jrf/plantilla-BANNERS-Mesa-de-trabajo-1-copia-4.jpg",
+        displaySeparately: true,
+        title: "Banner 4",
+      },
+    ],
+  },
+  {
+    id: 14,
+    title: "Thumbnails",
+    category: "Thumbnail",
+    pinned: true,
+    layout: {
+      masonry: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/yYmSjT5Z/mini-1.jpg",
+        displaySeparately: true,
+        title: "Mini 1",
+      },
+      {
+        url: "https://i.postimg.cc/15hqDdWS/mini-2.jpg",
+        displaySeparately: true,
+        title: "Mini 2",
+      },
+      {
+        url: "https://i.postimg.cc/yx93wh82/mini-3.jpg",
+        displaySeparately: true,
+        title: "Mini 3",
+      },
+      {
+        url: "https://i.postimg.cc/9Msq8gCG/mini-4.jpg",
+        displaySeparately: true,
+        title: "Mini 4",
+      },
+      {
+        url: "https://i.postimg.cc/50XCmWd4/mini-5.jpg",
+        displaySeparately: true,
+        title: "Mini 5",
+      },
+    ],
+  },
+  {
+    id: 15,
+    title: "Posters",
+    category: "Posters",
+    pinned: true,
+    layout: {
+      masonry: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/rp96xkMb/Banquete-global.jpg",
+        displaySeparately: true,
+        title: "Global Banquet",
+      },
+      {
+        url: "https://i.postimg.cc/C1vWrsZs/Gira-el-destino.jpg",
+        displaySeparately: true,
+        title: "Turn the fate",
+      },
+      {
+        url: "https://i.postimg.cc/SR9bXzsL/Dulce-avaricia.jpg",
+        displaySeparately: true,
+        title: "Sweet Greed",
+      },
+      {
+        url: "https://i.postimg.cc/rsx7yXnQ/El-actor-feliz-Mohamed-Bensaad.jpg",
+        displaySeparately: true,
+        title: "The Happy Actor",
+      },
+      {
+        url: "https://i.postimg.cc/2jZs7hkh/Tic-tac.jpg",
+        displaySeparately: true,
+        title: "Tic tak",
+      },
+      {
+        url: "https://i.postimg.cc/hPRHyvvw/EcoBingo.jpg",
+        displaySeparately: true,
+        title: "EcoBingo",
+      },
+      {
+        url: "https://i.postimg.cc/Kv7CdbgY/Efecto-domino.jpg",
+        displaySeparately: true,
+        title: "Domino Effect",
+      },
+      {
+        url: "https://i.postimg.cc/P5t0H7mQ/03-scaled.jpg",
+        displaySeparately: true,
+        title: "Game over",
+      },
+      {
+        url: "https://i.postimg.cc/MHqmBCZs/wert.jpg",
+        displaySeparately: true,
+        title: "Orihuela festival poster",
+      },
+    ],
+  },
+  {
+    id: 16,
+    title: "Business cards",
+    category: "Extra",
+    pinned: true,
+    layout: {
+      grid: true,
+    },
+    images: [
+      {
+        url: "https://i.postimg.cc/PqJcp8VL/tarjetas-mochap.jpg",
+        displaySeparately: true,
+        title: "Business card for DAMAR",
+      },
+      {
+        url: "https://i.postimg.cc/HkhzNv3x/instam.jpg",
+        displaySeparately: true,
+        title: "Instagram post",
+      },
+    ],
+  },
+];
+
 export default function Gallery() {
   const [filter, setFilter] = useState("all");
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
@@ -13,155 +451,22 @@ export default function Gallery() {
 
   useEffect(() => {
     setMounted(true);
+    return () => {
+      setMounted(false);
+    };
   }, []);
 
-  const projects: Project[] = [
-    {
-      id: 1,
-      title: "Arcava golf brand",
-      category: "branding",
-      pinned: true,
-      showTitle: true,
-      images: [
-        "https://i.postimg.cc/xTKFPKgJ/1.jpg",
-        "https://i.postimg.cc/dVZ3XVky/2.jpg",
-        "https://i.postimg.cc/6qK1sqp5/3.jpg",
-        "https://i.postimg.cc/kMtnqpM0/4.jpg",
-        "https://i.postimg.cc/2yPyjsg6/5.jpg",
-      ],
-    },
-    {
-      id: 2,
-      title: "Podcast Design Up Att Batt",
-      category: "branding",
-      pinned: true,
-      showTitle: true,
-      images: [
-        "https://i.postimg.cc/QCXzvCfk/1-2.jpg",
-        "https://i.postimg.cc/VNnH6nTW/2-2.jpg",
-        "https://i.postimg.cc/Y97DmjBK/3-2.jpg",
-        "https://i.postimg.cc/XYTz4Q2v/4-2.jpg",
-      ],
-    },
-    {
-      id: 3,
-      title: "Blooming coffee brand design",
-      category: "branding",
-      pinned: true,
-      showTitle: true,
-      images: [
-        "https://i.postimg.cc/rwmdCLLD/1-3.jpg",
-        "https://i.postimg.cc/gjFRNtHf/2-3.jpg",
-        "https://i.postimg.cc/28TbZSgp/3-3.jpg",
-        "https://i.postimg.cc/zG57JvW9/4-3.jpg",
-        "https://i.postimg.cc/SsjVwP8R/5-1.jpg",
-      ],
-    },
-    {
-      id: 4,
-      title: "brand design for a game develope, 762 Interactive",
-      category: "branding",
-      pinned: true,
-      showTitle: true,
-      images: [
-        "https://i.postimg.cc/XJFxjCH6/1-4.jpg",
-        "https://i.postimg.cc/BvRMfgCC/2-4.jpg",
-        "https://i.postimg.cc/FsxWk099/3-4.jpg",
-        "https://i.postimg.cc/WzG9nkgw/4-4.jpg",
-        "https://i.postimg.cc/MZVrxhNf/5-2.jpg",
-      ],
-    },
-    {
-      id: 5,
-      title: "hannel identity design Trial by Fire",
-      category: "branding",
-      pinned: true,
-      showTitle: true,
-      images: [
-        "https://i.postimg.cc/C156SXj9/1-1.jpg",
-        "https://i.postimg.cc/bYQF8xby/2-1.jpg",
-        "https://i.postimg.cc/KvWTHVzR/3-1.jpg",
-        "https://i.postimg.cc/pdRLGYDm/4-1.jpg",
-      ],
-    },
-    {
-      id: 6,
-      title: "Cover design for the book Educational Psychology",
-      category: "books",
-      pinned: true,
-      showTitle: true,
-      images: [
-        "https://i.postimg.cc/L8vgK8m4/1-5.jpg",
-        "https://i.postimg.cc/XYnBzCSD/2-5.jpg",
-        "https://i.postimg.cc/NGrX9tkb/3-5.jpg",
-        "https://i.postimg.cc/GmjGLjxC/4-5.jpg",
-      ],
-    },
-    {
-      id: 7,
-      title: "Otaku Magazine, first issue",
-      category: "magazine",
-      pinned: true,
-      showTitle: true,
-      layout: {
-        vertical: true,
-      },
-      images: [
-        "https://i.postimg.cc/x8Wq5XGg/waershtgthhtht.jpg",
-        "https://i.postimg.cc/qv26mx5K/Photorealistic-Magazine-Mock-Up.jpg",
-        "https://i.postimg.cc/B6n8n9Q5/pixelcut-export-11.png",
-        "https://i.postimg.cc/PxVCL3Pg/dyvu6gi7h8ojpk9.jpg",
-      ],
-    },
-    {
-      id: 8,
-      title: "Logo design for a new startup",
-      category: "logos",
-      pinned: true,
-      layout: {
-        horizontal: true,
-      },
-      images: [
-        "https://i.postimg.cc/02MwSsGc/logo-Lending-Hands-to-Local-Brands-Mesa-de-trabajo-1.jpg",
-        "https://i.postimg.cc/7hcJRs43/LOGO-Meigs-Creek-Hideaway-Mesa-de-trabajo-1.jpg",
-        "https://i.postimg.cc/PqzZqQbH/logo-post-Mesa-de-trabajo-1-copia.jpg",
-        "https://i.postimg.cc/7PQzb6z5/LOGO-The-Problem-Solver-Mesa-de-trabajo-1.jpg",
-      ],
-    },
-    {
-      id: 8,
-      title: "T-shirt design for a new startup",
-      category: "t-shirts",
-      pinned: true,
-      layout: {
-        banner: true,
-      },
-      images: [
-        "https://mohammedbensaad.my.canva.site/copia-de-portafolio/media/ab9c7c09512ebc3de45a9ef61ddfa8af.jpg",
-      ],
-    },
-    {
-      id: 9,
-      title: "T-shirt design for a new startup",
-      category: "t-shirts",
-      pinned: true,
-      images: [
-        "https://mohammedbensaad.my.canva.site/copia-de-portafolio/media/e0664dc1d0a12a1c4c9bee21baf0289a.jpg",
-        "https://mohammedbensaad.my.canva.site/copia-de-portafolio/media/d592eb2ea2539da40c9d263fc22a6ebb.jpg",
-        "https://mohammedbensaad.my.canva.site/copia-de-portafolio/media/f77b0e756e44de71d7a3a0fdc7fba5ae.jpg",
-      ],
-    },
-  ];
-
   const categories = [
-    "all",
-    "branding",
-    "thumbnail",
-    "books",
-    "banners",
-    "magazine",
-    "t-shirts",
-    "logos",
+    "All",
+    "Branding",
+    "Thumbnail",
+    "Banners",
+    "Books",
+    "Posters",
+    "Magazine",
+    "T-shirts",
+    "Logos",
+    "Extra",
   ];
 
   const sortedProjects = [...projects].sort((a, b) => {
@@ -170,9 +475,41 @@ export default function Gallery() {
     return 0;
   });
 
-  const filteredProjects = sortedProjects.filter((project) =>
-    filter === "all" ? true : project.category === filter
-  );
+  const getFilteredProjects = () => {
+    const filtered = sortedProjects.filter((project) =>
+      filter.toLowerCase() === "all"
+        ? true
+        : project.category.toLowerCase() === filter.toLowerCase()
+    );
+
+    return filtered.flatMap((project) => {
+      if (
+        filter !== "all" &&
+        project.images.some((img) => img.displaySeparately)
+      ) {
+        return project.images
+          .filter((img) => img.displaySeparately)
+          .map((img, index) => ({
+            ...project,
+            id: `${project.id}-${index}`,
+            title: img.title || project.title,
+            images: [{ url: img.url }],
+          }));
+      }
+      return [project];
+    });
+  };
+
+  const displayedProjects = getFilteredProjects();
+
+  const getImageUrl = (project: Project, index: number) => {
+    try {
+      return project.images[index]?.url || "";
+    } catch (error) {
+      console.error("Error getting image URL:", error);
+      return "";
+    }
+  };
 
   const handleImageLoad = (imageUrl: string) => {
     setLoadedImages((prev) => ({ ...prev, [imageUrl]: true }));
@@ -199,7 +536,6 @@ export default function Gallery() {
   };
 
   const pinnedProjects = projects.filter((project) => project.pinned);
-  const nonPinnedProjects = projects.filter((project) => !project.pinned);
 
   return (
     <section className="py-20">
@@ -224,7 +560,7 @@ export default function Gallery() {
             {categories.map((category, index) => (
               <button
                 key={category}
-                onClick={() => setFilter(category)}
+                onClick={() => setFilter(category.toLowerCase())}
                 className={`relative px-6 py-2 text-sm font-medium transition-all duration-300 rounded-full
                   ${
                     mounted
@@ -232,7 +568,7 @@ export default function Gallery() {
                       : "translate-y-4 opacity-0"
                   }
                   ${
-                    filter === category
+                    filter === category.toLowerCase()
                       ? "text-white bg-primary-600 shadow-md"
                       : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
                   }
@@ -251,54 +587,53 @@ export default function Gallery() {
 
       {/* Pinned Projects Row - Only show for "all" filter */}
       {filter === "all" && (
-        <PinnedProjects
-          projects={pinnedProjects}
-          onProjectClick={setSelectedProject}
-        />
+        <div className="mb-16">
+          <PinnedProjects
+            projects={pinnedProjects}
+            onProjectClick={setSelectedProject}
+          />
+        </div>
       )}
 
       {/* Regular Grid */}
       <div className="container mx-auto px-4">
         <div className="masonry-grid">
-          {filteredProjects
-            .filter((project) => !project.pinned || filter !== "all")
-            .map((project, index) => (
+          {displayedProjects
+            .filter((project) => (filter === "all" ? !project.pinned : true))
+            .map((project: Project, index) => (
               <div
                 key={project.id}
-                className={`masonry-item
-                ${
+                className={`masonry-item ${
                   mounted
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
-                }
-              `}
+                }`}
                 style={{
                   transitionDelay: `${index * 100}ms`,
                 }}>
                 <div
-                  className={`glass-card hover-card rounded-xl overflow-hidden cursor-pointer
-                  ${project.pinned ? "border-2 border-primary-500" : ""}
-                `}
+                  className={`glass-card hover-card rounded-xl overflow-hidden cursor-pointer h-[400px]
+                    ${project.pinned ? "border-2 border-primary-500" : ""}`}
                   onClick={() => {
                     setSelectedProject(project);
                     setCurrentImageIndex(0);
                   }}>
-                  <div className="relative">
+                  <div className="relative h-full">
                     <img
-                      src={project.images[0]}
+                      src={getImageUrl(project, 0)}
                       alt={project.title}
-                      className={`w-full h-auto object-cover transition-transform duration-700 hover:scale-110
-                      ${
-                        loadedImages[project.images[0]] === false
-                          ? "hidden"
-                          : ""
-                      }`}
-                      onLoad={() => handleImageLoad(project.images[0])}
-                      onError={() => handleImageError(project.images[0])}
+                      className={`w-full h-full object-cover transition-transform duration-700 hover:scale-110
+                        ${
+                          loadedImages[getImageUrl(project, 0)] === false
+                            ? "hidden"
+                            : ""
+                        }`}
+                      onLoad={() => handleImageLoad(getImageUrl(project, 0))}
+                      onError={() => handleImageError(getImageUrl(project, 0))}
                       loading="lazy"
                     />
-                    {loadedImages[project.images[0]] === false && (
-                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100 min-h-[300px]">
+                    {loadedImages[getImageUrl(project, 0)] === false && (
+                      <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
                         <ImageOff className="w-12 h-12 text-gray-400" />
                       </div>
                     )}

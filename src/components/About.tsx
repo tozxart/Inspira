@@ -29,10 +29,10 @@ export default function About() {
   ];
 
   const achievements = [
-    { number: "250+", label: "Projects Completed" },
-    { number: "120+", label: "Happy Clients" },
-    { number: "15+", label: "Design Awards" },
-    { number: "10+", label: "Years Experience" },
+    { number: "20+", label: "Projects Completed" },
+    { number: "70+", label: "Happy Clients" },
+    { number: "7", label: "Years Experience" },
+    { number: "5", label: "Design Awards" },
   ];
 
   // const teamMembers = [

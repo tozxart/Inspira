@@ -2,9 +2,10 @@ import { useRef } from "react";
 import Gallery from "./components/Gallery";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import { Instagram, Linkedin, Dribbble } from "lucide-react";
+import { Instagram, Linkedin, Dribbble, Twitter } from "lucide-react";
 import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
 import WorkSlider from "./components/WorkSlider";
+import ScrollToTop from "./components/ScrollToTop";
 
 function App() {
   const galleryRef = useRef<HTMLDivElement>(null);
@@ -85,9 +86,11 @@ function App() {
                         </div>
                         <div className="flex items-center justify-center space-x-6">
                           {[
-                            { icon: Instagram, link: "#" },
-                            { icon: Linkedin, link: "#" },
-                            { icon: Dribbble, link: "#" },
+                            {
+                              icon: Instagram,
+                              link: "https://www.instagram.com/insp_ira27/",
+                            },
+                            { icon: Twitter, link: "https://x.com/inspira128" },
                           ].map((social, index) => (
                             <a
                               key={index}
@@ -117,7 +120,7 @@ function App() {
         {/* Footer */}
         <footer className="bg-white border-t border-neutral-200">
           <div className="container mx-auto px-4 py-12">
-            <div className="grid grid-cols-1 md:grid-cols-3 gap-12">
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-12">
               <div className="space-y-4">
                 <h3 className="text-xl font-semibold text-gradient">
                   About Inspira
@@ -132,38 +135,43 @@ function App() {
                   Get in Touch
                 </h3>
                 <div className="space-y-2 text-gray-600">
-                  <p>hello@inspira.design</p>
-                  <p>(555) 123-4567</p>
-                  <p>Design Studio, Creative Valley</p>
-                </div>
-              </div>
-              <div className="space-y-4">
-                <h3 className="text-xl font-semibold text-gradient">Connect</h3>
-                <div className="flex space-x-4">
-                  {[
-                    { Icon: Instagram, label: "Instagram" },
-                    { Icon: Linkedin, label: "LinkedIn" },
-                    { Icon: Dribbble, label: "Dribbble" },
-                  ].map(({ Icon, label }) => (
+                  <p>inspiradesign72@gmail.com</p>
+                  <div className="flex space-x-4">
                     <a
-                      key={label}
-                      href="#"
-                      className="w-10 h-10 rounded-full flex items-center justify-center border border-gray-200 hover:border-primary-600 hover:text-primary-600 transition-colors"
-                      aria-label={label}>
-                      <Icon size={20} />
+                      href="https://www.instagram.com/insp_ira27/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-primary-600 transition-colors">
+                      Instagram
                     </a>
-                  ))}
+                    <a
+                      href="https://x.com/inspira128"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-primary-600 transition-colors">
+                      Twitter
+                    </a>
+                  </div>
                 </div>
               </div>
             </div>
             <div className="mt-12 pt-8 border-t border-gray-200/20 text-center text-gray-500">
-              <p>
-                &copy; {new Date().getFullYear()} ToZx. Crafted with passion.
+              <p className="flex items-center justify-center gap-2">
+                <span>&copy; {new Date().getFullYear()}</span>
+                <a
+                  href="https://github.com/tozxart"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="font-medium bg-gradient-to-r from-primary-600 to-secondary-600 bg-clip-text text-transparent hover:opacity-80 transition-opacity">
+                  ToZx
+                </a>
+                <span className="text-sm">| Crafted with 💖 & ☕</span>
               </p>
             </div>
           </div>
         </footer>
       </div>
+      <ScrollToTop />
     </Router>
   );
 }

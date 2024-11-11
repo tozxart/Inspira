@@ -17,12 +17,10 @@ export default function PinnedProjects({
           <div
             className="relative w-full h-[300px]"
             onClick={() => onProjectClick(project)}>
-            {/* Added rounded-[2rem] to match other layouts */}
             <div className="glass-card cursor-pointer h-full rounded-[2rem]">
               <img
-                src={project.images[0]}
+                src={project.images[0].url}
                 alt={project.title}
-                // Added rounded-[2rem] to the image as well
                 className="w-full h-full object-cover object-center rounded-[2rem]"
               />
               {project.images.length > 1 && (
@@ -56,7 +54,7 @@ export default function PinnedProjects({
                 ${imageIndex !== 0 ? "border-l-0" : ""}`}
                 style={{ marginLeft: imageIndex === 0 ? "0" : "-1px" }}>
                 <img
-                  src={image}
+                  src={image.url}
                   alt={`${project.title} - Image ${imageIndex + 1}`}
                   className={`w-full h-full object-cover
                   ${imageIndex === 0 ? "rounded-l-[2rem]" : ""} 
@@ -79,7 +77,7 @@ export default function PinnedProjects({
           <div className="w-2/3" onClick={() => onProjectClick(project)}>
             <div className="glass-card cursor-pointer h-[600px] rounded-[2rem]">
               <img
-                src={project.images[0]}
+                src={project.images[0].url}
                 alt={project.title}
                 className="w-full h-full object-cover rounded-[2rem]"
               />
@@ -93,7 +91,7 @@ export default function PinnedProjects({
                 onClick={() => onProjectClick(project)}>
                 <div className="glass-card cursor-pointer h-full rounded-[2rem]">
                   <img
-                    src={image}
+                    src={image.url}
                     alt={`${project.title} - Image ${index + 2}`}
                     className="w-full h-full object-cover rounded-[2rem]"
                   />
@@ -105,7 +103,83 @@ export default function PinnedProjects({
       );
     }
 
-    if (project.layout.grid) {
+    if (project.layout?.masonry) {
+      const images = project.images;
+      const firstRowCount = images.length >= 4 ? 3 : Math.min(images.length, 2);
+      const firstRow = images.slice(0, firstRowCount);
+      const middleImages = images.slice(firstRowCount, -2);
+      const lastTwoImages = images.slice(-2);
+
+      return (
+        <div className="flex flex-col gap-4">
+          {/* First row - larger images */}
+          <div className="grid grid-cols-3 gap-4">
+            {firstRow.map((image, index) => (
+              <div
+                key={index}
+                className={`${
+                  firstRowCount === 2 ? "col-span-2" : ""
+                } h-[400px]`}
+                onClick={() => onProjectClick(project)}>
+                <div className="glass-card cursor-pointer h-full rounded-[2rem] hover-card">
+                  <img
+                    src={image.url}
+                    alt={`${project.title} - Image ${index + 1}`}
+                    className="w-full h-full object-cover rounded-[2rem]"
+                  />
+                </div>
+              </div>
+            ))}
+          </div>
+
+          {/* Middle images - 4 columns */}
+          {middleImages.length > 0 && (
+            <div className="grid grid-cols-4 gap-4">
+              {middleImages.map((image, index) => (
+                <div
+                  key={index + firstRowCount}
+                  className="h-[250px]"
+                  onClick={() => onProjectClick(project)}>
+                  <div className="glass-card cursor-pointer h-full rounded-[2rem] hover-card">
+                    <img
+                      src={image.url}
+                      alt={`${project.title} - Image ${
+                        index + firstRowCount + 1
+                      }`}
+                      className="w-full h-full object-cover rounded-[2rem]"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+
+          {/* Last two images - grid layout */}
+          {lastTwoImages.length > 0 && (
+            <div className="grid grid-cols-2 gap-4">
+              {lastTwoImages.map((image, index) => (
+                <div
+                  key={index + images.length - 2}
+                  className="h-[300px]"
+                  onClick={() => onProjectClick(project)}>
+                  <div className="glass-card cursor-pointer h-full rounded-[2rem]">
+                    <img
+                      src={image.url}
+                      alt={`${project.title} - Image ${
+                        index + images.length - 1
+                      }`}
+                      className="w-full h-full object-cover rounded-[2rem]"
+                    />
+                  </div>
+                </div>
+              ))}
+            </div>
+          )}
+        </div>
+      );
+    }
+
+    if (project.layout?.grid) {
       return (
         <div className="grid grid-cols-2 gap-4">
           {project.images.map((image, index) => (
@@ -115,7 +189,7 @@ export default function PinnedProjects({
               onClick={() => onProjectClick(project)}>
               <div className="glass-card cursor-pointer h-full rounded-[2rem]">
                 <img
-                  src={image}
+                  src={image.url}
                   alt={`${project.title} - Image ${index + 1}`}
                   className="w-full h-full object-cover rounded-[2rem]"
                 />

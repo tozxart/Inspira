@@ -2,6 +2,8 @@ import { useEffect, useState, useRef } from "react";
 import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
+import { getRandomProjectsForSlider } from "../helpers/randomize";
+import { projects } from "./Gallery"; // Import projects from Gallery
 
 // Import Swiper styles
 import "swiper/css";
@@ -13,6 +15,9 @@ export default function WorkSlider() {
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const swiperRef = useRef<SwiperType>();
   const timerRef = useRef<NodeJS.Timeout>();
+
+  // Get random works from gallery projects
+  const [works] = useState(() => getRandomProjectsForSlider(projects));
 
   useEffect(() => {
     setMounted(true);
@@ -75,65 +80,6 @@ export default function WorkSlider() {
     }
   }, [selectedId]);
 
-  const works = [
-    {
-      id: 1,
-      title: "Dota 2",
-      description:
-        "Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.",
-      image:
-        "https://www.yudiz.com/codepen/expandable-animated-card-slider/dota-2.jpg",
-    },
-    {
-      id: 2,
-      title: "The Witcher 3",
-      description:
-        "The Witcher 3 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.",
-      image:
-        "https://www.yudiz.com/codepen/expandable-animated-card-slider/winter-3.jpg",
-    },
-    {
-      id: 3,
-      title: "RDR 2",
-      description:
-        "RDR 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.",
-      image:
-        "https://www.yudiz.com/codepen/expandable-animated-card-slider/rdr-2.jpg",
-    },
-    {
-      id: 4,
-      title: "PUBG Mobile",
-      description:
-        "PUBG Mobile is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.",
-      image:
-        "https://www.yudiz.com/codepen/expandable-animated-card-slider/pubg.jpg",
-    },
-    {
-      id: 5,
-      title: "Fortnite",
-      description:
-        "Battle royale where 100 players fight to be the last person standing. which was a community-created mod for Blizzard Entertainment's Warcraft III.",
-      image:
-        "https://www.yudiz.com/codepen/expandable-animated-card-slider/fortnite.jpg",
-    },
-    {
-      id: 6,
-      title: "The Witcher 3",
-      description:
-        "The Witcher 3 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.",
-      image:
-        "https://www.yudiz.com/codepen/expandable-animated-card-slider/winter-3.jpg",
-    },
-    {
-      id: 7,
-      title: "Dota 2",
-      description:
-        "Dota 2 is a multiplayer online battle arena by Valve. The game is a sequel to Defense of the Ancients, which was a community-created mod for Blizzard Entertainment's Warcraft III.",
-      image:
-        "https://www.yudiz.com/codepen/expandable-animated-card-slider/dota-2.jpg",
-    },
-  ];
-
   return (
     <section className="featured-works py-20">
       <div className="container mx-auto px-4">
@@ -144,13 +90,21 @@ export default function WorkSlider() {
         <div className="swiper-container">
           <Swiper
             modules={[Autoplay, Pagination]}
-            slidesPerView="auto"
-            spaceBetween={30}
+            slidesPerView={1.5}
             centeredSlides={true}
+            centeredSlidesBounds={true}
             loop={true}
-            speed={600}
+            speed={800}
+            spaceBetween={30}
+            slideToClickedSlide={true}
+            watchSlidesProgress={true}
+            updateOnWindowResize={true}
+            observer={true}
+            observeParents={true}
+            loopAdditionalSlides={4}
+            roundLengths={true}
             autoplay={{
-              delay: 3000,
+              delay: 4000,
               disableOnInteraction: false,
               pauseOnMouseEnter: true,
             }}
@@ -158,12 +112,20 @@ export default function WorkSlider() {
               clickable: true,
               bulletClass: "swiper-pagination-bullet !bg-primary-500",
             }}
+            breakpoints={{
+              640: {
+                slidesPerView: 2.5,
+              },
+              1024: {
+                slidesPerView: 3.5,
+              },
+            }}
             onSwiper={(swiper) => {
               swiperRef.current = swiper;
+              swiper.update();
             }}
             onSlideChange={(swiper) => {
               setActiveIndex(swiper.realIndex);
-              // Close expanded card when sliding
               setSelectedId(null);
             }}
             className="game-slider">
@@ -172,24 +134,34 @@ export default function WorkSlider() {
                 key={work.id}
                 className={`game-slide ${
                   selectedId === work.id ? "expanded" : ""
-                }`}
-                onClick={() => handleSlideClick(work.id, index)}>
+                }`}>
                 <div
-                  className={`game-card relative rounded-2xl overflow-hidden cursor-pointer
-                    ${mounted ? "opacity-100" : "opacity-0"}
-                    ${selectedId === work.id ? "active" : ""}
-                    ${activeIndex === index ? "current" : ""}`}
+                  className={`game-card`}
                   style={{
-                    backgroundImage: `url(${work.image})`,
-                    backgroundSize: "cover",
-                    backgroundPosition: "center",
-                  }}>
+                    backgroundImage: `url(${work.images[0].url})`,
+                  }}
+                  onClick={() => handleSlideClick(Number(work.id), index)}>
+                  {/* Category Badge */}
+                  <div className="absolute top-4 left-4 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full z-10">
+                    <span className="text-white/90 text-sm font-medium capitalize">
+                      {work.category}
+                    </span>
+                  </div>
+
+                  {/* Content */}
                   <div className="game-card-content">
-                    <div className="p-6 text-white">
-                      <h3 className="text-2xl font-bold mb-2">{work.title}</h3>
-                      <p className="text-white/80 text-sm line-clamp-3 game-description">
-                        {work.description}
-                      </p>
+                    <h3 className="text-2xl font-bold mb-2 text-white">
+                      {work.title}
+                    </h3>
+                    <p className="text-white/80 text-sm line-clamp-2">
+                      {work.category}
+                    </p>
+
+                    {/* Image count indicator */}
+                    <div className="mt-2 flex items-center gap-2">
+                      <span className="text-white/60 text-xs">
+                        {work.images.length} images
+                      </span>
                     </div>
                   </div>
                 </div>

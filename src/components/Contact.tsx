@@ -1,5 +1,5 @@
 import React from "react";
-import { Mail, Phone, MapPin, Send } from "lucide-react";
+import { Mail, Phone, MapPin, Send, Instagram, Twitter } from "lucide-react";
 
 export default function Contact() {
   return (
@@ -82,27 +82,37 @@ export default function Contact() {
                   </div>
                   <div>
                     <h4 className="font-medium mb-1">Email</h4>
-                    <p className="text-gray-600">hello@inspira.design</p>
+                    <p className="text-gray-600">inspiradesign72@gmail.com</p>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-primary-50 rounded-lg">
-                    <Phone className="w-6 h-6 text-primary-600" />
+                    <Instagram className="w-6 h-6 text-primary-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium mb-1">Phone</h4>
-                    <p className="text-gray-600">(555) 123-4567</p>
+                    <h4 className="font-medium mb-1">Instagram</h4>
+                    <a
+                      href="https://www.instagram.com/insp_ira27/"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-primary-600 transition-colors">
+                      @insp_ira27
+                    </a>
                   </div>
                 </div>
                 <div className="flex items-start gap-4">
                   <div className="p-3 bg-primary-50 rounded-lg">
-                    <MapPin className="w-6 h-6 text-primary-600" />
+                    <Twitter className="w-6 h-6 text-primary-600" />
                   </div>
                   <div>
-                    <h4 className="font-medium mb-1">Location</h4>
-                    <p className="text-gray-600">
-                      Design Studio, Creative Valley
-                    </p>
+                    <h4 className="font-medium mb-1">Twitter</h4>
+                    <a
+                      href="https://x.com/inspira128"
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      className="text-gray-600 hover:text-primary-600 transition-colors">
+                      @inspira128
+                    </a>
                   </div>
                 </div>
               </div>
