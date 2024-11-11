@@ -85,6 +85,35 @@ export const projects: Project[] = [
     ],
   },
   {
+    id: 17,
+    title: "HUGGLEMOO A pet products web store",
+    category: "branding",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/0N6KZpng/panda-Mesa-de-trabajo-1.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/bw4wy4xM/panda-Mesa-de-trabajo-1-copia.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/NFF3rjYx/panda-Mesa-de-trabajo-1-copia-2.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/jS01RXWc/panda-Mesa-de-trabajo-1-copia-3.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/3Jgs4VQV/panda-Mesa-de-trabajo-1-copia-4.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
     id: 4,
     title: "brand design for a game develope, 762 Interactive",
     category: "branding",
