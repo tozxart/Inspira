@@ -81,21 +81,21 @@ export default function WorkSlider() {
   }, [selectedId]);
 
   return (
-    <section className="featured-works py-20">
+    <section className="featured-works py-12 md:py-20">
       <div className="container mx-auto px-4">
-        <h2 className="text-2xl font-bold mb-12 relative line-title">
+        <h2 className="text-xl md:text-2xl font-bold mb-8 md:mb-12 relative line-title">
           Featured Works
         </h2>
 
-        <div className="swiper-container">
+        <div className="swiper-container -mx-4 sm:mx-0">
           <Swiper
             modules={[Autoplay, Pagination]}
-            slidesPerView={1.5}
+            slidesPerView={1.2}
             centeredSlides={true}
             centeredSlidesBounds={true}
             loop={true}
             speed={800}
-            spaceBetween={30}
+            spaceBetween={16}
             slideToClickedSlide={true}
             watchSlidesProgress={true}
             updateOnWindowResize={true}
@@ -113,11 +113,21 @@ export default function WorkSlider() {
               bulletClass: "swiper-pagination-bullet !bg-primary-500",
             }}
             breakpoints={{
+              480: {
+                slidesPerView: 1.5,
+                spaceBetween: 20,
+              },
               640: {
-                slidesPerView: 2.5,
+                slidesPerView: 2.2,
+                spaceBetween: 24,
               },
               1024: {
+                slidesPerView: 3.2,
+                spaceBetween: 30,
+              },
+              1280: {
                 slidesPerView: 3.5,
+                spaceBetween: 30,
               },
             }}
             onSwiper={(swiper) => {
@@ -142,18 +152,18 @@ export default function WorkSlider() {
                   }}
                   onClick={() => handleSlideClick(Number(work.id), index)}>
                   {/* Category Badge */}
-                  <div className="absolute top-4 left-4 px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full z-10">
-                    <span className="text-white/90 text-sm font-medium capitalize">
+                  <div className="absolute top-3 md:top-4 left-3 md:left-4 px-2 md:px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full z-10">
+                    <span className="text-white/90 text-xs md:text-sm font-medium capitalize">
                       {work.category}
                     </span>
                   </div>
 
                   {/* Content */}
-                  <div className="game-card-content">
-                    <h3 className="text-2xl font-bold mb-2 text-white">
+                  <div className="game-card-content p-4 md:p-6">
+                    <h3 className="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-white line-clamp-2">
                       {work.title}
                     </h3>
-                    <p className="text-white/80 text-sm line-clamp-2">
+                    <p className="text-white/80 text-xs md:text-sm line-clamp-2">
                       {work.category}
                     </p>
 

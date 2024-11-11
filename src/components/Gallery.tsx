@@ -100,11 +100,40 @@ export const projects: Project[] = [
         displaySeparately: false,
       },
       {
-        url: "https://i.postimg.cc/KvWTHVzR/3-4.jpg",
+        url: "https://i.postimg.cc/FsxWk099/3-4.jpg",
         displaySeparately: false,
       },
       {
-        url: "https://i.postimg.cc/pdRLGYDm/4-4.jpg",
+        url: "https://i.postimg.cc/WzG9nkgw/4-4.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/MZVrxhNf/5-2.jpg",
+        displaySeparately: false,
+      },
+    ],
+  },
+  {
+    id: 5,
+    title: "brand design for a game develope, 762 Interactive",
+    category: "branding",
+    pinned: true,
+    showTitle: true,
+    images: [
+      {
+        url: "https://i.postimg.cc/C156SXj9/1-1.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/bYQF8xby/2-1.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/KvWTHVzR/3-1.jpg",
+        displaySeparately: false,
+      },
+      {
+        url: "https://i.postimg.cc/pdRLGYDm/4-1.jpg",
         displaySeparately: false,
       },
     ],
@@ -538,7 +567,7 @@ export default function Gallery() {
   const pinnedProjects = projects.filter((project) => project.pinned);
 
   return (
-    <section className="py-20">
+    <section className="py-12 md:py-20">
       {selectedProject && (
         <ImageModal
           project={selectedProject}
@@ -553,15 +582,15 @@ export default function Gallery() {
         />
       )}
 
-      {/* Filter Buttons */}
-      <div className="w-full mb-16">
-        <div className="flex justify-center">
-          <div className="inline-flex bg-white rounded-full shadow-lg p-1.5">
+      {/* Filter Buttons - Make scrollable on mobile */}
+      <div className="w-full mb-8 md:mb-16 px-4">
+        <div className="flex justify-start md:justify-center overflow-x-auto pb-4 md:pb-0 hide-scrollbar">
+          <div className="inline-flex bg-white rounded-full shadow-lg p-1.5 whitespace-nowrap">
             {categories.map((category, index) => (
               <button
                 key={category}
                 onClick={() => setFilter(category.toLowerCase())}
-                className={`relative px-6 py-2 text-sm font-medium transition-all duration-300 rounded-full
+                className={`relative px-4 md:px-6 py-2 text-sm font-medium transition-all duration-300 rounded-full
                   ${
                     mounted
                       ? "translate-y-0 opacity-100"
@@ -587,7 +616,7 @@ export default function Gallery() {
 
       {/* Pinned Projects Row - Only show for "all" filter */}
       {filter === "all" && (
-        <div className="mb-16">
+        <div className="mb-8 md:mb-16">
           <PinnedProjects
             projects={pinnedProjects}
             onProjectClick={setSelectedProject}
@@ -597,13 +626,13 @@ export default function Gallery() {
 
       {/* Regular Grid */}
       <div className="container mx-auto px-4">
-        <div className="masonry-grid">
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {displayedProjects
             .filter((project) => (filter === "all" ? !project.pinned : true))
             .map((project: Project, index) => (
               <div
                 key={project.id}
-                className={`masonry-item ${
+                className={`transform transition-all duration-300 ${
                   mounted
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
@@ -612,7 +641,7 @@ export default function Gallery() {
                   transitionDelay: `${index * 100}ms`,
                 }}>
                 <div
-                  className={`glass-card hover-card rounded-xl overflow-hidden cursor-pointer h-[400px]
+                  className={`glass-card hover-card rounded-xl overflow-hidden cursor-pointer h-[300px] md:h-[400px]
                     ${project.pinned ? "border-2 border-primary-500" : ""}`}
                   onClick={() => {
                     setSelectedProject(project);
@@ -634,15 +663,15 @@ export default function Gallery() {
                     />
                     {loadedImages[getImageUrl(project, 0)] === false && (
                       <div className="absolute inset-0 flex items-center justify-center bg-gray-100">
-                        <ImageOff className="w-12 h-12 text-gray-400" />
+                        <ImageOff className="w-8 h-8 md:w-12 md:h-12 text-gray-400" />
                       </div>
                     )}
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 hover:opacity-100 transition-opacity duration-300">
-                      <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-2 hover:translate-y-0 transition-transform duration-300">
-                        <h3 className="text-white font-semibold text-xl mb-1">
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-100 md:opacity-0 hover:opacity-100 transition-opacity duration-300">
+                      <div className="absolute bottom-0 left-0 right-0 p-4 md:p-6 transform translate-y-0 md:translate-y-2 hover:translate-y-0 transition-transform duration-300">
+                        <h3 className="text-white font-semibold text-lg md:text-xl mb-1 line-clamp-2">
                           {project.title}
                         </h3>
-                        <p className="text-white/80 text-sm capitalize">
+                        <p className="text-white/80 text-xs md:text-sm capitalize">
                           {project.category}
                         </p>
                         {project.pinned && (
@@ -653,7 +682,7 @@ export default function Gallery() {
                       </div>
                     </div>
                     {project.images.length > 1 && (
-                      <div className="absolute top-4 right-4 glass-card px-3 py-1 rounded-full text-xs">
+                      <div className="absolute top-4 right-4 glass-card px-2 md:px-3 py-1 rounded-full text-xs">
                         {project.images.length} images
                       </div>
                     )}
