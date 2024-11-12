@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
 import ImageModal from "./ImageModal";
 import { Project } from "./types";
-import { ImageOff } from "lucide-react";
+import { ImageOff, ChevronDown } from "lucide-react";
 import PinnedProjects from "./PinnedProjects";
 
 export const projects: Project[] = [
@@ -502,48 +502,28 @@ export const projects: Project[] = [
 
 export default function Gallery() {
   const [filter, setFilter] = useState("all");
+  const [visibleProjects, setVisibleProjects] = useState(6);
+  const [visiblePinnedProjects, setVisiblePinnedProjects] = useState(3);
+  const [mounted, setMounted] = useState(false);
   const [selectedProject, setSelectedProject] = useState<Project | null>(null);
   const [currentImageIndex, setCurrentImageIndex] = useState(0);
-  const [mounted, setMounted] = useState(false);
-  const [loadedImages, setLoadedImages] = useState<Record<string, boolean>>({});
+  const [loadedImages, setLoadedImages] = useState<{ [key: string]: boolean }>(
+    {}
+  );
+  const [hasShownMore, setHasShownMore] = useState(false);
+  const [isLoadingMore, setIsLoadingMore] = useState(false);
 
   useEffect(() => {
     setMounted(true);
-    return () => {
-      setMounted(false);
-    };
   }, []);
 
-  const categories = [
-    "All",
-    "Branding",
-    "Thumbnail",
-    "Banners",
-    "Books",
-    "Posters",
-    "Magazine",
-    "T-shirts",
-    "Logos",
-    "Extra",
-  ];
+  const categories = ["all", ...new Set(projects.map((p) => p.category))];
 
-  const sortedProjects = [...projects].sort((a, b) => {
-    if (a.pinned && !b.pinned) return -1;
-    if (!a.pinned && b.pinned) return 1;
-    return 0;
-  });
-
-  const getFilteredProjects = () => {
-    const filtered = sortedProjects.filter((project) =>
-      filter.toLowerCase() === "all"
-        ? true
-        : project.category.toLowerCase() === filter.toLowerCase()
-    );
-
-    return filtered.flatMap((project) => {
+  const processProjects = (projects: Project[]) => {
+    return projects.flatMap((project) => {
       if (
-        filter !== "all" &&
-        project.images.some((img) => img.displaySeparately)
+        project.images.some((img) => img.displaySeparately) &&
+        project.layout?.horizontal
       ) {
         return project.images
           .filter((img) => img.displaySeparately)
@@ -558,7 +538,49 @@ export default function Gallery() {
     });
   };
 
-  const displayedProjects = getFilteredProjects();
+  const displayedProjects = processProjects(
+    projects.filter((project) =>
+      filter === "all"
+        ? !project.pinned
+        : project.category.toLowerCase() === filter
+    )
+  );
+
+  const pinnedProjects = projects.filter((project) => project.pinned);
+  const visiblePinnedProjectsList = pinnedProjects.slice(
+    0,
+    visiblePinnedProjects
+  );
+
+  const handleShowMore = () => {
+    setVisibleProjects((prev) => prev + 6);
+    setHasShownMore(true);
+  };
+
+  const handleShowMorePinned = () => {
+    setIsLoadingMore(true);
+
+    // Update the number of visible pinned projects
+    setVisiblePinnedProjects((prev) => {
+      const nextValue = prev + 3;
+      return Math.min(nextValue, pinnedProjects.length);
+    });
+
+    // Use requestAnimationFrame for smooth scrolling after state update
+    requestAnimationFrame(() => {
+      setTimeout(() => {
+        const pinnedCards = document.querySelectorAll(".pinned-project-card");
+        const lastVisiblePinned = pinnedCards[visiblePinnedProjects];
+        if (lastVisiblePinned) {
+          lastVisiblePinned.scrollIntoView({
+            behavior: "smooth",
+            block: "center",
+          });
+        }
+        setIsLoadingMore(false);
+      }, 100);
+    });
+  };
 
   const getImageUrl = (project: Project, index: number) => {
     try {
@@ -593,10 +615,17 @@ export default function Gallery() {
     }
   };
 
-  const pinnedProjects = projects.filter((project) => project.pinned);
+  const handleFilterChange = (category: string) => {
+    setFilter(category.toLowerCase());
+    setVisibleProjects(6);
+    setVisiblePinnedProjects(3);
+  };
+
+  const hasMoreProjects = visibleProjects < displayedProjects.length;
+  const hasMorePinnedProjects = visiblePinnedProjects < pinnedProjects.length;
 
   return (
-    <section className="py-12 md:py-20">
+    <section className="py-8">
       {selectedProject && (
         <ImageModal
           project={selectedProject}
@@ -611,57 +640,76 @@ export default function Gallery() {
         />
       )}
 
-      {/* Filter Buttons - Make scrollable on mobile */}
-      <div className="w-full mb-8 md:mb-16 px-4">
-        <div className="flex justify-start md:justify-center overflow-x-auto pb-4 md:pb-0 hide-scrollbar">
-          <div className="inline-flex bg-white rounded-full shadow-lg p-1.5 whitespace-nowrap">
-            {categories.map((category, index) => (
-              <button
-                key={category}
-                onClick={() => setFilter(category.toLowerCase())}
-                className={`relative px-4 md:px-6 py-2 text-sm font-medium transition-all duration-300 rounded-full
-                  ${
-                    mounted
-                      ? "translate-y-0 opacity-100"
-                      : "translate-y-4 opacity-0"
-                  }
-                  ${
-                    filter === category.toLowerCase()
-                      ? "text-white bg-primary-600 shadow-md"
-                      : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
-                  }
-                `}
-                style={{
-                  transitionDelay: `${index * 50}ms`,
-                }}>
-                <span className="relative z-10">
-                  {category.charAt(0).toUpperCase() + category.slice(1)}
-                </span>
-              </button>
-            ))}
+      <div className="w-full mb-6 px-4">
+        <div className="flex justify-center">
+          <div className="max-w-full overflow-x-auto md:overflow-visible pb-2 md:pb-0 hide-scrollbar">
+            <div className="inline-flex bg-white rounded-full shadow-lg p-1.5 whitespace-nowrap min-w-0">
+              {categories.map((category, index) => (
+                <button
+                  key={category}
+                  onClick={() => handleFilterChange(category)}
+                  className={`relative px-3 md:px-6 py-2 text-sm font-medium transition-all duration-300 rounded-full
+                    ${
+                      mounted
+                        ? "translate-y-0 opacity-100"
+                        : "translate-y-4 opacity-0"
+                    }
+                    ${
+                      filter === category.toLowerCase()
+                        ? "text-white bg-primary-600 shadow-md"
+                        : "text-gray-600 hover:text-gray-900 hover:bg-gray-50"
+                    }
+                    whitespace-nowrap`}
+                  style={{ transitionDelay: `${index * 50}ms` }}>
+                  <span className="relative z-10">
+                    {category.charAt(0).toUpperCase() + category.slice(1)}
+                  </span>
+                </button>
+              ))}
+            </div>
           </div>
         </div>
       </div>
 
-      {/* Pinned Projects Row - Only show for "all" filter */}
       {filter === "all" && (
-        <div className="mb-8 md:mb-16">
+        <div className="mb-8">
           <PinnedProjects
-            projects={pinnedProjects}
+            projects={visiblePinnedProjectsList}
             onProjectClick={setSelectedProject}
           />
+          {hasMorePinnedProjects && (
+            <div className="flex justify-center mt-6">
+              <button
+                onClick={handleShowMorePinned}
+                disabled={isLoadingMore}
+                className="group flex items-center gap-2 px-8 py-4 
+                  bg-white shadow-md
+                  border border-neutral-200 hover:border-primary-500 rounded-2xl
+                  transition-all duration-300 hover:shadow-lg hover:shadow-primary-500/10
+                  transform hover:-translate-y-0.5 disabled:opacity-50 
+                  disabled:cursor-not-allowed">
+                <span className="text-neutral-600 group-hover:text-primary-600 font-medium">
+                  {isLoadingMore ? "Loading..." : "Show More Featured Projects"}
+                </span>
+                <ChevronDown
+                  className={`w-5 h-5 text-neutral-400 group-hover:text-primary-600 
+                    transition-transform duration-300 group-hover:translate-y-0.5
+                    ${isLoadingMore ? "animate-bounce" : ""}`}
+                />
+              </button>
+            </div>
+          )}
         </div>
       )}
 
-      {/* Regular Grid */}
       <div className="container mx-auto px-4">
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
           {displayedProjects
-            .filter((project) => (filter === "all" ? !project.pinned : true))
+            .slice(0, visibleProjects)
             .map((project: Project, index) => (
               <div
                 key={project.id}
-                className={`transform transition-all duration-300 ${
+                className={`project-card transform transition-all duration-300 ${
                   mounted
                     ? "translate-y-0 opacity-100"
                     : "translate-y-4 opacity-0"
@@ -720,6 +768,43 @@ export default function Gallery() {
               </div>
             ))}
         </div>
+
+        {(hasMoreProjects || hasShownMore) && (
+          <div className="relative mt-8">
+            <div className="absolute inset-x-0 -top-32 h-32 bg-gradient-to-t from-neutral-50 pointer-events-none" />
+            <div className="flex flex-col items-center">
+              {hasMoreProjects ? (
+                <button
+                  onClick={handleShowMore}
+                  className="group flex flex-col items-center gap-3 px-8 py-4 
+                    transition-all duration-300 hover:-translate-y-1">
+                  <div
+                    className="p-4 rounded-full bg-white/50 backdrop-blur-sm border border-neutral-200 
+                      group-hover:border-primary-500 group-hover:shadow-lg group-hover:shadow-primary-500/10
+                      transition-all duration-300">
+                    <ChevronDown
+                      className="w-6 h-6 text-neutral-400 group-hover:text-primary-600 
+                        transition-transform duration-300 group-hover:translate-y-0.5"
+                    />
+                  </div>
+                  <span className="text-neutral-600 group-hover:text-primary-600 font-medium">
+                    Load More Projects
+                  </span>
+                  <span className="text-sm text-neutral-400">
+                    Showing {visibleProjects} of {projects.length}
+                  </span>
+                </button>
+              ) : (
+                <div className="text-center text-neutral-500">
+                  <p>All projects loaded</p>
+                  <p className="text-sm">
+                    Showing all {projects.length} projects
+                  </p>
+                </div>
+              )}
+            </div>
+          </div>
+        )}
       </div>
     </section>
   );

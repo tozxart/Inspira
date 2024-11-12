@@ -1,6 +1,7 @@
-import React from "react";
-import { X, ChevronLeft, ChevronRight, ArrowLeft } from "lucide-react";
+import React, { useEffect } from "react";
+import { X, ChevronLeft, ChevronRight } from "lucide-react";
 import { Project } from "./types";
+import { useModal } from "../contexts/ModalContext";
 
 interface ImageModalProps {
   project: Project;
@@ -19,36 +20,43 @@ export default function ImageModal({
   onNextImage,
   onImageSelect,
 }: ImageModalProps) {
+  const { setIsModalOpen } = useModal();
+
+  useEffect(() => {
+    setIsModalOpen(true);
+    return () => setIsModalOpen(false);
+  }, [setIsModalOpen]);
+
+  const handleClose = () => {
+    setIsModalOpen(false);
+    onClose();
+  };
+
   return (
     <div className="fixed inset-0 z-50 flex items-center justify-center">
       {/* Backdrop */}
       <div
         className="absolute inset-0 bg-black/90 backdrop-blur-xl"
-        onClick={onClose}
+        onClick={handleClose}
       />
 
       {/* Modal Content */}
       <div className="relative w-full h-full flex flex-col justify-between">
-        {/* Top Bar with Back and Close Buttons */}
+        {/* Top Bar with Title and Close Button */}
         <div className="absolute top-0 left-0 right-0 z-50 p-4 flex justify-between items-center">
-          {/* Back Button */}
-          <button
-            onClick={onClose}
-            className="flex items-center gap-2 px-4 py-2 text-white/80 hover:text-white bg-black/30 hover:bg-black/50 rounded-full transition-all duration-300 transform hover:scale-105 backdrop-blur-sm group"
-            aria-label="Go back">
-            <ArrowLeft
-              size={20}
-              className="transform group-hover:-translate-x-1 transition-transform"
-            />
-            <span className="text-sm font-medium">Back to Gallery</span>
-          </button>
+          {/* Title */}
+          <h2 className="text-white/90 text-lg font-medium px-4 py-2 bg-black/30 backdrop-blur-sm rounded-full">
+            {project.title}
+          </h2>
 
           {/* Close Button */}
           <button
-            onClick={onClose}
-            className="p-2 text-white/60 hover:text-white/90 bg-black/30 hover:bg-black/50 rounded-full transition-all duration-300 transform hover:scale-105 backdrop-blur-sm"
+            onClick={handleClose}
+            className="p-3 text-white/80 hover:text-white bg-black/30 hover:bg-black/50 
+              rounded-full transition-all duration-300 transform hover:scale-105 
+              backdrop-blur-sm hover:rotate-90 group"
             aria-label="Close modal">
-            <X size={24} />
+            <X size={24} className="transition-transform duration-300" />
           </button>
         </div>
 
@@ -87,13 +95,6 @@ export default function ImageModal({
               className="transform group-hover:translate-x-0.5 transition-transform"
             />
           </button>
-        </div>
-
-        {/* Project Title */}
-        <div className="absolute top-20 left-0 right-0 text-center">
-          <h2 className="text-white/90 text-xl font-medium px-4 py-2 bg-black/30 backdrop-blur-sm inline-block rounded-full">
-            {project.title}
-          </h2>
         </div>
 
         {/* Thumbnails */}

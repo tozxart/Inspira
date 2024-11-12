@@ -117,51 +117,81 @@
 }
 
 .game-slider {
-  padding: 15px 0 48px !important;
-  margin: 0 auto !important;
-  width: 100% !important;
+  padding: 2rem 0;
   overflow: visible !important;
-  position: relative;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
 }
 
 .game-slide {
-  width: 380px !important;
-  height: 480px !important;
-  transition: all 0.6s cubic-bezier(0.4, 0, 0.2, 1);
-  opacity: 0.6;
-  transform: scale(0.85);
-  position: relative;
-  display: flex !important;
-  justify-content: center !important;
-  align-items: center !important;
-}
-
-.swiper-slide-active {
-  opacity: 1 !important;
-  transform: scale(1) !important;
-  z-index: 10 !important;
-}
-
-.swiper-slide-prev,
-.swiper-slide-next {
-  opacity: 0.7 !important;
-  transform: scale(0.9) !important;
+  height: 400px;
+  transition: all 0.5s ease;
 }
 
 .game-card {
-  width: 100% !important;
-  height: 100% !important;
+  width: 100%;
+  height: 100%;
+  cursor: pointer;
   position: relative;
-  background-position: center;
-  background-size: cover;
-  border-radius: 1rem;
-  overflow: hidden;
-  box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1),
-    0 2px 4px -1px rgba(0, 0, 0, 0.06);
-  margin: 0 auto;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  opacity: 0.4; /* All slides start faded */
+  transform: scale(0.85);
+}
+
+/* Active slide styles */
+.swiper-slide-active .game-card {
+  transform: scale(1);
+  opacity: 1;
+}
+
+/* Adjacent slides */
+.swiper-slide-prev .game-card,
+.swiper-slide-next .game-card {
+  opacity: 0.6;
+  transform: scale(0.9);
+}
+
+/* Other slides */
+.swiper-slide:not(.swiper-slide-active):not(.swiper-slide-prev):not(
+    .swiper-slide-next
+  )
+  .game-card {
+  opacity: 0.4;
+  transform: scale(0.85);
+}
+
+/* Hover effects */
+.game-card:hover {
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+}
+
+/* Content transition */
+.game-card-content {
+  transform: translateY(20px);
+  opacity: 0;
+  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.swiper-slide-active .game-card-content {
+  transform: translateY(0);
+  opacity: 1;
+}
+
+/* Background image and overlay transitions */
+.game-card .bg-image {
+  transform: scale(1);
+  transition: transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-card:hover .bg-image {
+  transform: scale(1.1);
+}
+
+.game-card .overlay {
+  opacity: 0.6;
+  transition: opacity 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+.game-card:hover .overlay {
+  opacity: 0.7;
 }
 
 /* Add wrapper styles */

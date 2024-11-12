@@ -2,16 +2,18 @@ import { useRef, useState, useEffect } from "react";
 import Gallery from "./components/Gallery";
 import About from "./components/About";
 import Contact from "./components/Contact";
-import { Instagram, Linkedin, Dribbble, Twitter } from "lucide-react";
-import { HashRouter as Router, Routes, Route, Link } from "react-router-dom";
+import { Instagram, Twitter } from "lucide-react";
+import { Routes, Route, Link, useLocation } from "react-router-dom";
 import WorkSlider from "./components/WorkSlider";
 import ScrollToTop from "./components/ScrollToTop";
 import { X, Menu } from "lucide-react";
-import { useLocation } from "react-router-dom";
+import { Toaster } from "./components/ui/toaster";
+import { ModalProvider } from "./contexts/ModalContext";
 
 function App() {
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const galleryRef = useRef<HTMLDivElement>(null);
+  const location = useLocation();
 
   const scrollToGallery = () => {
     galleryRef.current?.scrollIntoView({ behavior: "smooth" });
@@ -24,7 +26,7 @@ function App() {
   }, [location]);
 
   return (
-    <Router>
+    <ModalProvider>
       <div className="min-h-screen bg-neutral-50 flex flex-col">
         {/* Header */}
         <header className="fixed w-full z-50 bg-white/80 backdrop-blur-md border-b border-neutral-200">
@@ -211,9 +213,10 @@ function App() {
             </div>
           </div>
         </footer>
+        <ScrollToTop />
+        <Toaster />
       </div>
-      <ScrollToTop />
-    </Router>
+    </ModalProvider>
   );
 }
 

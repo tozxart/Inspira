@@ -1,7 +1,59 @@
 import React from "react";
-import { Mail, Phone, MapPin, Send, Instagram, Twitter } from "lucide-react";
+import { Mail, Send, Instagram, Twitter } from "lucide-react";
+import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import * as z from "zod";
+import { useToast } from "./ui/use-toast";
+
+const FormSchema = z.object({
+  username: z.string().min(2, "Name must be at least 2 characters"),
+  email: z.string().email("Please enter a valid email"),
+  message: z.string().min(10, "Message must be at least 10 characters"),
+});
 
 export default function Contact() {
+  const { toast } = useToast();
+  const form = useForm<z.infer<typeof FormSchema>>({
+    resolver: zodResolver(FormSchema),
+    defaultValues: {
+      username: "",
+      email: "",
+      message: "",
+    },
+  });
+
+  const onSubmit = async (data: z.infer<typeof FormSchema>) => {
+    try {
+      const response = await fetch("https://formspree.io/f/xovqwljy", {
+        method: "POST",
+        headers: {
+          "Content-Type": "application/json",
+        },
+        body: JSON.stringify({
+          name: data.username,
+          email: data.email,
+          message: data.message,
+        }),
+      });
+
+      if (!response.ok) {
+        throw new Error("Failed to send message");
+      }
+
+      toast({
+        title: "Message sent successfully",
+        description: `Thanks ${data.username}, I'll be in touch soon.`,
+      });
+      form.reset();
+    } catch {
+      toast({
+        variant: "destructive",
+        title: "Failed to send message",
+        description: "Please try again later or use the social links below.",
+      });
+    }
+  };
+
   return (
     <div className="pt-32 pb-20">
       <div className="container mx-auto px-4">
@@ -21,19 +73,23 @@ export default function Contact() {
         <div className="grid grid-cols-1 md:grid-cols-2 gap-12 max-w-6xl mx-auto">
           {/* Contact Form */}
           <div className="glass-card p-8 rounded-2xl hover-card">
-            <form className="space-y-6">
+            <form onSubmit={form.handleSubmit(onSubmit)} className="space-y-6">
               <div className="space-y-2">
                 <label
-                  htmlFor="name"
+                  htmlFor="username"
                   className="block text-sm font-medium text-gray-700">
                   Name
                 </label>
                 <input
-                  type="text"
-                  id="name"
+                  {...form.register("username")}
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-colors"
                   placeholder="Your name"
                 />
+                {form.formState.errors.username && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.username.message}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <label
@@ -42,11 +98,16 @@ export default function Contact() {
                   Email
                 </label>
                 <input
+                  {...form.register("email")}
                   type="email"
-                  id="email"
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-colors"
                   placeholder="your@email.com"
                 />
+                {form.formState.errors.email && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.email.message}
+                  </p>
+                )}
               </div>
               <div className="space-y-2">
                 <label
@@ -55,15 +116,22 @@ export default function Contact() {
                   Message
                 </label>
                 <textarea
-                  id="message"
+                  {...form.register("message")}
                   rows={6}
                   className="w-full px-4 py-3 rounded-lg border border-gray-200 focus:border-primary-500 focus:ring-2 focus:ring-primary-500/20 transition-colors resize-none"
-                  placeholder="Tell us about your project..."></textarea>
+                  placeholder="Tell us about your project..."
+                />
+                {form.formState.errors.message && (
+                  <p className="text-red-500 text-sm">
+                    {form.formState.errors.message.message}
+                  </p>
+                )}
               </div>
               <button
                 type="submit"
-                className="w-full px-8 py-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2">
-                Send Message
+                disabled={form.formState.isSubmitting}
+                className="w-full px-8 py-4 bg-primary-600 text-white rounded-lg hover:bg-primary-700 transition-colors flex items-center justify-center gap-2 disabled:opacity-50">
+                {form.formState.isSubmitting ? "Sending..." : "Send Message"}
                 <Send size={18} />
               </button>
             </form>

@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from "react";
 import { ArrowUp } from "lucide-react";
+import { useModal } from "../contexts/ModalContext";
 
 export default function ScrollToTop() {
   const [isVisible, setIsVisible] = useState(false);
+  const { isModalOpen } = useModal();
 
   // Show button when page is scrolled up to given distance
   const toggleVisibility = () => {
@@ -30,6 +32,8 @@ export default function ScrollToTop() {
     });
   };
 
+  if (isModalOpen) return null;
+
   return (
     <>
       {isVisible && (
@@ -37,7 +41,7 @@ export default function ScrollToTop() {
           onClick={scrollToTop}
           className={`fixed bottom-8 right-8 p-3 bg-primary-600 hover:bg-primary-700 
             text-white rounded-full shadow-lg cursor-pointer transition-all duration-300 
-            ease-in-out hover:scale-110 hover:shadow-xl z-50 group
+            ease-in-out hover:scale-110 hover:shadow-xl z-40 group
             ${
               isVisible
                 ? "translate-y-0 opacity-100"

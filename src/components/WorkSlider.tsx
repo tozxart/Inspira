@@ -3,15 +3,18 @@ import { Swiper, SwiperSlide } from "swiper/react";
 import { Autoplay, Pagination } from "swiper/modules";
 import type { Swiper as SwiperType } from "swiper";
 import { getRandomProjectsForSlider } from "../helpers/randomize";
-import { projects } from "./Gallery"; // Import projects from Gallery
+import { projects } from "./Gallery";
+import ImageModal from "./ImageModal";
 
 // Import Swiper styles
 import "swiper/css";
 import "swiper/css/pagination";
 
 export default function WorkSlider() {
-  const [mounted, setMounted] = useState(false);
-  const [activeIndex, setActiveIndex] = useState(0);
+  const [selectedProject, setSelectedProject] = useState<
+    (typeof projects)[0] | null
+  >(null);
+  const [currentImageIndex, setCurrentImageIndex] = useState(0);
   const [selectedId, setSelectedId] = useState<number | null>(null);
   const swiperRef = useRef<SwiperType>();
   const timerRef = useRef<NodeJS.Timeout>();
@@ -19,25 +22,18 @@ export default function WorkSlider() {
   // Get random works from gallery projects
   const [works] = useState(() => getRandomProjectsForSlider(projects));
 
-  useEffect(() => {
-    setMounted(true);
-  }, []);
-
   // Reset timer when selectedId changes
   useEffect(() => {
-    // Clear existing timer
     if (timerRef.current) {
       clearTimeout(timerRef.current);
     }
 
-    // Set new timer if a slide is selected
     if (selectedId !== null) {
       timerRef.current = setTimeout(() => {
         setSelectedId(null);
-      }, 10000); // 20 seconds
+      }, 10000);
     }
 
-    // Cleanup timer on unmount
     return () => {
       if (timerRef.current) {
         clearTimeout(timerRef.current);
@@ -45,27 +41,24 @@ export default function WorkSlider() {
     };
   }, [selectedId]);
 
-  const handleSlideClick = (id: number, index: number) => {
-    // Ensure we have the swiper instance
-    if (!swiperRef.current) return;
+  const handleSlideClick = (work: (typeof projects)[0]) => {
+    setSelectedProject(work);
+    setCurrentImageIndex(0);
+  };
 
-    const realIndex = swiperRef.current.realIndex;
+  const handlePrevImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) =>
+        prev === 0 ? selectedProject.images.length - 1 : prev - 1
+      );
+    }
+  };
 
-    if (selectedId === id) {
-      // If clicking the same slide, just collapse it
-      setSelectedId(null);
-    } else {
-      // If it's not the center slide, center it first
-      if (realIndex !== index) {
-        swiperRef.current.slideToLoop(index, 300, false);
-        // Wait for the slide transition before expanding
-        setTimeout(() => {
-          setSelectedId(id);
-        }, 300);
-      } else {
-        // If it's already centered, just expand it
-        setSelectedId(id);
-      }
+  const handleNextImage = () => {
+    if (selectedProject) {
+      setCurrentImageIndex((prev) =>
+        prev === selectedProject.images.length - 1 ? 0 : prev + 1
+      );
     }
   };
 
@@ -82,6 +75,20 @@ export default function WorkSlider() {
 
   return (
     <section className="featured-works py-12 md:py-20">
+      {selectedProject && (
+        <ImageModal
+          project={selectedProject}
+          currentImageIndex={currentImageIndex}
+          onClose={() => {
+            setSelectedProject(null);
+            setCurrentImageIndex(0);
+          }}
+          onPrevImage={handlePrevImage}
+          onNextImage={handleNextImage}
+          onImageSelect={setCurrentImageIndex}
+        />
+      )}
+
       <div className="container mx-auto px-4">
         <h2 className="text-xl md:text-2xl font-bold mb-8 md:mb-12 relative line-title">
           Featured Works
@@ -92,7 +99,6 @@ export default function WorkSlider() {
             modules={[Autoplay, Pagination]}
             slidesPerView={1.2}
             centeredSlides={true}
-            centeredSlidesBounds={true}
             loop={true}
             speed={800}
             spaceBetween={16}
@@ -134,23 +140,22 @@ export default function WorkSlider() {
               swiperRef.current = swiper;
               swiper.update();
             }}
-            onSlideChange={(swiper) => {
-              setActiveIndex(swiper.realIndex);
-              setSelectedId(null);
-            }}
             className="game-slider">
-            {works.map((work, index) => (
-              <SwiperSlide
-                key={work.id}
-                className={`game-slide ${
-                  selectedId === work.id ? "expanded" : ""
-                }`}>
+            {works.map((work) => (
+              <SwiperSlide key={work.id} className="game-slide">
                 <div
-                  className={`game-card`}
-                  style={{
-                    backgroundImage: `url(${work.images[0].url})`,
-                  }}
-                  onClick={() => handleSlideClick(Number(work.id), index)}>
+                  className="game-card group relative overflow-hidden rounded-xl"
+                  onClick={() => handleSlideClick(work)}>
+                  {/* Background Image */}
+                  <div
+                    className="bg-image absolute inset-0 bg-cover bg-center"
+                    style={{
+                      backgroundImage: `url(${work.images[0].url})`,
+                    }}
+                  />
+                  {/* Overlay */}
+                  <div className="overlay absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent" />
+
                   {/* Category Badge */}
                   <div className="absolute top-3 md:top-4 left-3 md:left-4 px-2 md:px-3 py-1 bg-black/50 backdrop-blur-sm rounded-full z-10">
                     <span className="text-white/90 text-xs md:text-sm font-medium capitalize">
@@ -159,16 +164,14 @@ export default function WorkSlider() {
                   </div>
 
                   {/* Content */}
-                  <div className="game-card-content p-4 md:p-6">
+                  <div className="game-card-content absolute bottom-0 left-0 right-0 p-4 md:p-6 z-10">
                     <h3 className="text-lg md:text-2xl font-bold mb-1 md:mb-2 text-white line-clamp-2">
                       {work.title}
                     </h3>
-                    <p className="text-white/80 text-xs md:text-sm line-clamp-2">
+                    <p className="text-white/80 text-xs md:text-sm line-clamp-2 transform transition-all duration-500 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
                       {work.category}
                     </p>
-
-                    {/* Image count indicator */}
-                    <div className="mt-2 flex items-center gap-2">
+                    <div className="mt-2 flex items-center gap-2 transform transition-all duration-500 opacity-0 translate-y-4 group-hover:opacity-100 group-hover:translate-y-0">
                       <span className="text-white/60 text-xs">
                         {work.images.length} images
                       </span>
